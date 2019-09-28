@@ -1,29 +1,30 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div>
+    <TodoList />
+    <SelectWithSearch
+      v-model="state.value" 
+      :values="state.values"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import { createComponent, reactive } from '@vue/composition-api'
+import TodoList from '@/components/TodoList.vue'
+import SelectWithSearch from '@/components/SelectWithSearch/SelectWithSearch.vue'
 
-export default Vue.extend({
+export default createComponent({
   name: 'app',
   components: {
-    HelloWorld,
+    TodoList,
+    SelectWithSearch
   },
-});
+  setup() {
+    const state = reactive({
+      value: 'Toyota',
+      values: ['Toyota', 'Porsche', 'Seat', 'BMV', 'Tesla']
+    })
+    return { state }
+  }
+})
 </script>
-
-<style lang="less">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
